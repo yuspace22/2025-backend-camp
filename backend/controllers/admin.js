@@ -32,14 +32,18 @@ function isNotValidInteger (value) {
   return typeof value !== 'number' || value < 0 || value % 1 !== 0
 }
 
+// 🟢 Create：教練新增課程
 class AdminController {
   static async postCourse (req, res, next) {
     try {
-      const { id } = req.user
+      // 拿到「目前登入的教練」的 ID
+      const { id } = req.user 
+      // 課程資料
       const {
         skill_id: skillId, name, description, start_at: startAt, end_at: endAt,
         max_participants: maxParticipants, meeting_url: meetingUrl
-      } = req.body
+      } = req.body 
+      
       if (isUndefined(skillId) || isNotValidSting(skillId) ||
       isUndefined(name) || isNotValidSting(name) ||
       isUndefined(description) || isNotValidSting(description) ||
@@ -68,6 +72,7 @@ class AdminController {
         return
       }
       const courseRepo = dataSource.getRepository('Course')
+      //存進資料庫
       const newCourse = courseRepo.create({
         user_id: id,
         skill_id: skillId,
